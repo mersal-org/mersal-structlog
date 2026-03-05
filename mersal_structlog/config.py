@@ -29,6 +29,7 @@ class StructlogLoggingConfig(LoggingConfig):
     enable_canonical_log_lines: bool = False
     canonical_log_on_events: list[str] | None = field(default=None)
     pretty_print_tty: bool = field(default=True)
+    force_console_rendering: bool = field(default=False)
     json_serializer: Callable[..., str | bytes] | None = None
 
     def __post_init__(self) -> None:
@@ -57,7 +58,7 @@ class StructlogLoggingConfig(LoggingConfig):
         structlog.configure(wrapper_class=structlog.make_filtering_bound_logger(level))
 
     def _as_json(self) -> bool:
-        return not (sys.stderr.isatty() and self.pretty_print_tty)
+        return not self.force_console_rendering and not (sys.stderr.isatty() and self.pretty_print_tty)
 
     def _default_logger_factory(self, as_json: bool) -> Callable[..., WrappedLogger] | None:
         if as_json:
