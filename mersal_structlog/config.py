@@ -89,6 +89,6 @@ class StructlogLoggingConfig(LoggingConfig):
             structlog.processors.add_log_level,
             structlog.processors.TimeStamper(fmt="iso"),
             structlog.dev.ConsoleRenderer(
-                colors=True, exception_formatter=RichTracebackFormatter(max_frames=1, show_locals=False, width=80)
+                colors=True, exception_formatter=RichTracebackFormatter()
             ),
         ]
