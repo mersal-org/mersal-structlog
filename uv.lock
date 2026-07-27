@@ -165,8 +165,8 @@ wheels = [
 
 [[package]]
 name = "mersal"
-version = "0.1.0"
-source = { git = "https://github.com/mersal-org/mersal.git#56b4beffd21da81d23eccec130e7a14efed651a8" }
+version = "0.0.2.dev49"
+source = { git = "https://github.com/mersal-org/mersal.git#f876b841cab5233281bef6c12b397768bd411b54" }
 dependencies = [
     { name = "anyio" },
 ]

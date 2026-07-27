@@ -47,6 +47,17 @@ echo "{{vars.OK}} Package build complete"
 '''
 ]
 
+[tasks.test]
+quiet = true
+description = "Run tests"
+run = [
+'''
+echo "{{vars.INFO}} Running test cases... 🧪"
+uv run pytest tests
+echo "{{vars.OK}} Tests complete ✨"
+'''
+]
+
 [tasks."type-check:ty"]
 quiet = true
 description = "ty"
@@ -126,4 +137,5 @@ description = "Check everything"
 run = [
     "{{mise_bin}} run lint",
     "{{mise_bin}} run type-check",
+    "{{mise_bin}} run test",
 ]
