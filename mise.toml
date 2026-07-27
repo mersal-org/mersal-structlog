@@ -1,0 +1,129 @@
+[settings]
+experimental = true
+python.uv_venv_auto = true
+
+[vars]
+BLUE   = "\u001b[1;34m"
+GREEN  = "\u001b[1;32m"
+RED    = "\u001b[1;31m"
+YELLOW = "\u001b[1;33m"
+NC     = "\u001b[0m" # No Color
+
+INFO  = "{{vars.BLUE}}ℹ{{vars.NC}}"
+OK    = "{{vars.GREEN}}✓{{vars.NC}}"
+WARN  = "{{vars.YELLOW}}⚠{{vars.NC}}"
+ERROR = "{{vars.RED}}✖{{vars.NC}}"
+
+[tasks.clean]
+description = "Clean working env"
+run = '''
+echo "{{vars.INFO}} Cleaning working directory... 🧹"
+rm -rf .pytest_cache .ruff_cache build/ dist/ .eggs/ .coverage coverage.xml .mypy_cache
+find . -name '*.egg-info' -exec rm -rf {} +
+find . -name '__pycache__' -exec rm -rf {} +
+echo "{{vars.OK}} Working directory cleaned"
+'''
+quiet = true
+
+[tasks.install]
+description = "Install everything fresh"
+run = [
+'''
+echo "{{vars.INFO}} Starting fresh installation..."
+uv sync --all-extras --dev
+echo "{{vars.OK}} Installation complete! 🎉"
+'''
+]
+quiet = true
+
+[tasks.build]
+quiet = true
+description = "Build package"
+run = [
+'''
+echo "{{vars.INFO}} Building package... 📦"
+uv build
+echo "{{vars.OK}} Package build complete"
+'''
+]
+
+[tasks."type-check:ty"]
+quiet = true
+description = "ty"
+run = [
+'''
+echo "{{vars.INFO}} Running ty... 🔍"
+uv run ty check
+echo "{{vars.OK}} ty checks passed ✨"
+'''
+]
+
+[tasks."type-check:mypy"]
+quiet = true
+description = "Mypy"
+run = [
+'''
+echo "{{vars.INFO}} Running mypy... 🔍"
+uv run mypy
+echo "{{vars.OK}} Mypy checks passed ✨"
+'''
+]
+
+[tasks."type-check:pyright"]
+quiet = true
+description = "Pyright"
+run = [
+'''
+echo "{{vars.INFO}} Running basedpyright... 🔍"
+uv run basedpyright
+echo "{{vars.OK}} Basedpyright checks passed ✨"
+'''
+]
+
+[tasks.type-check]
+quiet = true
+description = "Type check"
+run = [
+    "{{mise_bin}} run type-check:ty",
+    "{{mise_bin}} run type-check:mypy",
+    "{{mise_bin}} run type-check:pyright",
+]
+
+[tasks."lint:fix"]
+quiet = true
+description = "Code formatters"
+run = [
+'''
+echo "{{vars.INFO}} Running code formatters... 🔧"
+uv run ruff check --fix --unsafe-fixes
+uv run ruff format
+echo "{{vars.OK}} Code formatting complete ✨"
+'''
+]
+
+[tasks."lint:pre-commit"]
+quiet = true
+description = "Pre-commit"
+run = [
+'''
+echo "{{vars.INFO}} Running pre-commit checks... 🔎"
+uv run pre-commit run --show-diff-on-failure --color=always --all-files
+echo "{{vars.OK}} Pre-commit checks passed ✨"
+'''
+]
+
+[tasks.lint]
+quiet = true
+description = "Lint"
+run = [
+    "{{mise_bin}} run lint:fix",
+    "{{mise_bin}} run lint:pre-commit",
+]
+
+[tasks.check-all]
+quiet = true
+description = "Check everything"
+run = [
+    "{{mise_bin}} run lint",
+    "{{mise_bin}} run type-check",
+]
