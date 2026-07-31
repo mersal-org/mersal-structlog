@@ -58,6 +58,17 @@ echo "{{vars.OK}} Tests complete ✨"
 '''
 ]
 
+[tasks.test-with-coverage]
+quiet = true
+description = "Run tests with coverage"
+run = [
+'''
+echo "{{vars.INFO}} Running test cases... 🧪"
+uv run pytest tests --cov=mersal_structlog --cov-report=xml
+echo "{{vars.OK}} Tests complete ✨"
+'''
+]
+
 [tasks."type-check:ty"]
 quiet = true
 description = "ty"
