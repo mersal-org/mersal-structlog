@@ -36,6 +36,30 @@ echo "{{vars.OK}} Installation complete! 🎉"
 ]
 quiet = true
 
+[tasks.upgrade]
+quiet = true
+description = "Upgrade deps"
+run = [
+'''
+echo "{{vars.INFO}} Updating all dependencies... 🔄"
+uv lock --upgrade
+echo "{{vars.OK}} Dependencies updated 🔄"
+uv run pre-commit autoupdate
+echo "{{vars.OK}} Updated Pre-commit hooks 🔄"
+'''
+]
+
+[tasks.lock]
+quiet = true
+description = "Lock deps"
+run = [
+'''
+echo "{{vars.INFO}} Rebuilding lockfiles... 🔄"
+uv lock --upgrade
+echo "{{vars.OK}} Lockfiles updated"
+'''
+]
+
 [tasks.build]
 quiet = true
 description = "Build package"
