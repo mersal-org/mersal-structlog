@@ -51,7 +51,7 @@ number is burned.
    - **major** (``1.2.3`` -> ``2.0.0``): breaking changes.
 
 3. Go to `Actions -> Build & Publish Package
-   <https://github.com/mersal-org/mersal_structlog/actions/workflows/publish.yml>`_,
+   <https://github.com/mersal-org/mersal.structlog/actions/workflows/publish.yml>`_,
    click **Run workflow**, enter the version (e.g. ``1.2.4``, no leading
    ``v``), and dispatch it on ``main``.
 
@@ -62,7 +62,7 @@ number is burned.
    - publishes it to PyPI using `Trusted Publishing
      <https://docs.pypi.org/trusted-publishers/>`_ -- no API tokens involved,
    - and only once that succeeds, tags the commit ``v1.2.4`` and creates the
-     `GitHub Release <https://github.com/mersal-org/mersal_structlog/releases>`_ with
+     `GitHub Release <https://github.com/mersal-org/mersal.structlog/releases>`_ with
      ``--generate-notes``.
 
 If any step fails, fix the issue and re-run the workflow with the same

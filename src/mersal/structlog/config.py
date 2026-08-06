@@ -5,17 +5,15 @@ from dataclasses import dataclass, field
 from typing import TYPE_CHECKING, Any
 
 import structlog
-from structlog.dev import RichTracebackFormatter
-
 from mersal.logging.config import GetLogger, LoggingConfig
+from structlog.dev import RichTracebackFormatter
 
 if TYPE_CHECKING:
     from collections.abc import Callable
 
-    from structlog.types import BindableLogger, Processor, WrappedLogger
-
     from mersal.logging import Logger
-    from mersal_structlog.plugin import StructlogLoggingPlugin
+    from mersal.structlog.plugin import StructlogLoggingPlugin
+    from structlog.types import BindableLogger, Processor, WrappedLogger
 
 __all__ = ("StructlogLoggingConfig",)
 
@@ -40,7 +38,7 @@ class StructlogLoggingConfig(LoggingConfig):
 
     @property
     def plugin(self) -> StructlogLoggingPlugin:
-        from mersal_structlog.plugin import StructlogLoggingPlugin
+        from mersal.structlog.plugin import StructlogLoggingPlugin
 
         return StructlogLoggingPlugin(self)
 

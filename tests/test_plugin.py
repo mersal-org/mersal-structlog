@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from mersal_structlog import StructlogLoggingConfig, StructlogLoggingPlugin
+from mersal.structlog import StructlogLoggingConfig, StructlogLoggingPlugin
 
 
 def test_plugin_property_builds_structlog_plugin() -> None:

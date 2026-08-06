@@ -67,7 +67,7 @@ log_cli = true
 
 [tool.ruff]
 include = [
-  "src/mersal_structlog/**/*.{py,pyi}",
+  "src/mersal/structlog/**/*.{py,pyi}",
   "tests/**/*.{py,pyi}",
   "pyproject.toml"
 ]
@@ -95,7 +95,6 @@ convention = "google"
 [tool.ruff.lint.isort]
 known-first-party = [
 "mersal",
-"mersal_structlog",
 ]
 
 [build-system]
@@ -110,7 +109,8 @@ fallback-version = "0.0.0"
 local_scheme = "no-local-version"
 
 [tool.hatch.build.targets.wheel]
-packages = ["src/mersal_structlog"]
+packages = ["src/mersal"]
+dev-mode-dirs = ["src"]
 
 [tool.hatch.metadata]
 allow-direct-references = true
@@ -131,7 +131,7 @@ enable_error_code = [
   "redundant-self",
 ]
 packages = [
-  "mersal_structlog",
+  "mersal.structlog",
 ]
 disallow_any_generics = false
 local_partial_types = true
@@ -143,7 +143,7 @@ warn_unreachable = true
 typeCheckingMode = "standard"
 pythonVersion = "3.11"
 include = [
-  "src/mersal_structlog",
+  "src/mersal",
   "tests",
 ]
 
@@ -152,5 +152,5 @@ python-version = "3.11"
 
 [tool.ty.src]
 include = [
-  "src/mersal_structlog",
+  "src/mersal",
 ]

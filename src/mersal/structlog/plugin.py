@@ -3,16 +3,15 @@ from __future__ import annotations
 from contextlib import contextmanager
 from typing import TYPE_CHECKING, Any
 
-from structlog.contextvars import bound_contextvars, clear_contextvars
-
 from mersal.logging.standard_plugin import StandardLoggingPlugin
 from mersal.plugins import Plugin
+from structlog.contextvars import bound_contextvars, clear_contextvars
 
 if TYPE_CHECKING:
     from collections.abc import Iterator
 
     from mersal.configuration import StandardConfigurator
-    from mersal_structlog.config import StructlogLoggingConfig
+    from mersal.structlog.config import StructlogLoggingConfig
 
 __all__ = ("StructlogLoggingPlugin",)
 
