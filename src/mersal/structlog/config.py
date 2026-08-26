@@ -29,6 +29,7 @@ class StructlogLoggingConfig(LoggingConfig):
     pretty_print_tty: bool = field(default=True)
     force_console_rendering: bool = field(default=False)
     json_serializer: Callable[..., str | bytes] | None = None
+    extra_json_processors: list[Processor] = field(default_factory=list)  # pyright: ignore
 
     def __post_init__(self) -> None:
         if self.processors is None:
@@ -80,6 +81,7 @@ class StructlogLoggingConfig(LoggingConfig):
                 structlog.processors.add_log_level,
                 structlog.processors.format_exc_info,
                 structlog.processors.TimeStamper(fmt="iso", utc=True),
+                *self.extra_json_processors,
                 structlog.processors.JSONRenderer(**json_renderer_kwargs),
             ]
         return [
