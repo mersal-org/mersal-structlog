@@ -8,7 +8,7 @@ from mersal.plugins import Plugin
 from structlog.contextvars import bind_contextvars, clear_contextvars, get_contextvars
 
 if TYPE_CHECKING:
-    from collections.abc import Iterator
+    from collections.abc import Generator
 
     from mersal.configuration import StandardConfigurator
     from mersal.structlog.config import StructlogLoggingConfig
@@ -17,7 +17,7 @@ __all__ = ("StructlogLoggingPlugin",)
 
 
 @contextmanager
-def pipeline_context(**kwargs: Any) -> Iterator[None]:
+def pipeline_context(**kwargs: Any) -> Generator[None]:
     # Only a received message is a fresh unit of work whose context should start
     # empty. An outgoing pipeline runs *inside* one - a handler sending/publishing,
     # or an HTTP request dispatching a command - so clearing there would wipe the
